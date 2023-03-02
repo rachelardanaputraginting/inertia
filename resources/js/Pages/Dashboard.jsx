@@ -8,7 +8,7 @@ export default function Dashboard() {
             <div className="container">
                 <div className="card">
                     <div className="card-header">Dashboard</div>
-                    <div className="card-body">Halaman Dashboard</div>
+                    <div className="card-body">Selamat Datang</div>
                 </div>
             </div>
         </>
