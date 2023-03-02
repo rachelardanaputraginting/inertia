@@ -4,7 +4,7 @@ import React from 'react'
 export default function Navbar() {
     return (
         <div>
-            <nav className="navbar navbar-expand-lg navbar-light bg-light">
+            <nav className="navbar navbar-expand-lg navbar-dark bg-primary">
                 <div className="container">
                     <a className="navbar-brand" href="#">Navbar</a>
                     <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -29,17 +29,8 @@ export default function Navbar() {
                                     <li><a className="dropdown-item" href="#">Something else here</a></li>
                                 </ul>
                             </li>
-                            <li className="nav-item">
-                                <a className="nav-link disabled" href="#" tabIndex={-1} aria-disabled="true">Disabled</a>
-                            </li>
                         </ul>
                         <ul className="navbar-nav ms-auto mb-2 mb-lg-0">
-                            <li className="nav-item">
-                                <Link className="nav-link" href="/">Home</Link>
-                            </li>
-                            <li className="nav-item">
-                                <Link className="nav-link" href="/dashboard">Link</Link>
-                            </li>
                             <li className="nav-item dropdown">
                                 <Link className="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                     Rachel Ardana Putra Ginting
@@ -52,7 +43,10 @@ export default function Navbar() {
                                 </ul>
                             </li>
                             <li className="nav-item">
-                                <a className="nav-link disabled" href="#" tabIndex={-1} aria-disabled="true">Disabled</a>
+                                <Link className="nav-link" href="/login">Login</Link>
+                            </li>
+                            <li className="nav-item">
+                                <Link className="nav-link" href="/register">Register</Link>
                             </li>
                         </ul>
                     </div>

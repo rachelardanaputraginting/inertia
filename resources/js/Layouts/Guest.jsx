@@ -3,9 +3,11 @@ import React from 'react'
 
 export default function Guest({ children, title }) {
     return (
-        <div>
+        <div className="min-vh-100 d-flex justify-content-center align-items-center">
             <Head title={title}></Head>
-            {children}
+            <div className="col-md-5">
+                {children}
+            </div>
         </div>
     )
 }

@@ -4,10 +4,15 @@ import App from '../Layouts/App'
 export default function Dashboard() {
     // const name = props.name;
     return (
-        <App>
+        <>
             <div className="container">
-                <h2>Halaman Dashboard</h2>
+                <div className="card">
+                    <div className="card-header">Dashboard</div>
+                    <div className="card-body">Halaman Dashboard</div>
+                </div>
             </div>
-        </App>
+        </>
     )
 }
+
+Dashboard.layout = (page) => <App children={page} title="Dashboard" />
