@@ -4,19 +4,33 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\RegisterController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 
 // Home
-Route::get('/', HomeController::class);
+Route::get('/', HomeController::class)->name('home');
 
-// Dashboard
-Route::get('/dashboard', DashboardController::class);
+Route::middleware('auth')->group(function () {
 
-// Login
-Route::get('/login', [LoginController::class, 'create']);
-Route::post('/login', [LoginController::class, 'store']);
+    // Dashboard
+    Route::get('dashboard', DashboardController::class)->name('dashboard');
 
-// Login
-Route::get('/register', [RegisterController::class, 'create']);
-Route::post('/register', [RegisterController::class, 'store']);
+    // Logout
+    Route::post('logout', [LoginController::class, 'destroy'])->name('logout');
+
+
+    // Users
+    Route::resource('users', UserController::class);
+});
+
+Route::middleware('guest')->group(function () {
+
+    // Login
+    Route::get('login', [LoginController::class, 'create'])->name('login');
+    Route::post('login', [LoginController::class, 'store']);
+
+    // Register
+    Route::get('register', [RegisterController::class, 'create'])->name('register');
+    Route::post('register', [RegisterController::class, 'store']);
+});

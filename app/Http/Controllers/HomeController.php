@@ -11,8 +11,6 @@ class HomeController extends Controller
      */
     public function __invoke(Request $request)
     {
-        return inertia('Home', [
-            'name' => 'Dinda Indriana'
-        ]);
+        return inertia('Home');
     }
 }

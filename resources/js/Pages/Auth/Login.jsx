@@ -1,25 +1,23 @@
-import { Inertia } from '@inertiajs/inertia'
-import { Link } from '@inertiajs/inertia-react'
-import React, { useState } from 'react'
-import App from '../../Layouts/App'
+import { Link, useForm } from '@inertiajs/inertia-react'
+import React from 'react'
 import Guest from '../../Layouts/Guest'
 
 export default function Login({ errors }) {
 
-    const [values, setValues] = useState({
-        email: '', password: '', remember: ''
+    const { data, setData, post } = useForm({
+        email: 'sage48@example.org', password: 'password', remember: ''
     })
-
-    const changeHandler = (e) => setValues({
-        ...values,
-        [e.target.id]: e.target.value
-    });
 
     const submitHandler = (e) => {
         e.preventDefault();
-        // console.log(values);
-        Inertia.post('/login', values);
+        post(route('login'), data);
     }
+
+    const changeHandler = (e) => setData({
+        ...data,
+        [e.target.id]: e.target.value
+    });
+
     return (
         <>
             <div className="container">
@@ -29,16 +27,16 @@ export default function Login({ errors }) {
                         <form onSubmit={submitHandler} noValidate>
                             <div className="mb-3">
                                 <label htmlFor="email" className="form-label">Email</label>
-                                <input type="text" name='email' id='email' value={values.email} onChange={changeHandler} className="form-control" />
+                                <input type="text" name='email' id='email' value={data.email} onChange={changeHandler} className="form-control" />
                                 {errors && (<div className="mt-1 text-danger">{errors.email}</div>)}
                             </div>
                             <div className="mb-3">
                                 <label htmlFor="password" className="form-label">Email</label>
-                                <input type="text" name='password' id='password' value={values.password} onChange={changeHandler} className="form-control" />
+                                <input type="text" name='password' id='password' value={data.password} onChange={changeHandler} className="form-control" />
                                 {errors && (<div className="mt-1 text-danger">{errors.password}</div>)}
                             </div>
                             <div className="mb-3">
-                                <input type="checkbox" className='form-check-input' value={values.remember} onChange={(e) => setValues({ ...values, remember: e.target.checked })} name="remember" id="remember" />
+                                <input type="checkbox" className='form-check-input' value={data.remember} onChange={(e) => setData({ ...values, remember: e.target.checked })} name="remember" id="remember" />
                                 <label htmlFor="password" className="ms-2 form-label" > Remember Me</label>
                             </div>
                             <div className="mb-3">
@@ -47,7 +45,9 @@ export default function Login({ errors }) {
                         </form>
                     </div>
                     <div className="card-footer">
-                        <Link href="/register">Register</Link>
+                        <span className='text-muted'>
+                            Does'nt have an account  ?
+                        </span> <Link href="/register">Register</Link>
                     </div>
                 </div>
             </div>
