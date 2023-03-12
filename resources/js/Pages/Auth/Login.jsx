@@ -5,7 +5,7 @@ import Guest from '../../Layouts/Guest'
 export default function Login({ errors }) {
 
     const { data, setData, post } = useForm({
-        email: 'sage48@example.org', password: 'password', remember: ''
+        email: 'sawayn.briana@example.org', password: 'password', remember: ''
     })
 
     const submitHandler = (e) => {
