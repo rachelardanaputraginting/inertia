@@ -1,13 +1,24 @@
 import App from '../../Layouts/App'
-import React from 'react'
+import React, { useRef } from 'react'
 import Pagination from '../../Components/Pagination';
+import useDialog from "../../Hooks/useDialog";
+import Dialog from '../../Components/Dialog';
 import CreateUser from '../../Components/CreateUser';
 
 export default function Index(props) {
     const { data: users, links, from } = props.users;
+
+    const [addDialogHandler, addCloseTrigger, addTrigger] = useDialog()
+
     return (
         <div className='container'>
-            <CreateUser />
+            <Dialog size="xl" trigger={addTrigger} title="Create User">
+                <CreateUser close={addCloseTrigger} />
+            </Dialog>
+            <button onClick={addDialogHandler} className="btn btn-primary">
+                Add
+            </button>
+
             <div className="card mt-4">
                 <div className="card-header">Users</div>
                 <div className="card-body">
