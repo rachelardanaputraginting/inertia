@@ -16,8 +16,9 @@ export default function EditUser({ close, model }) {
         e.preventDefault();
         put(route('users.update', model.id), {
             data,
-            onSuccess: () => reset(),
-            onSuccess: () => close()
+            onSuccess: () => {
+                reset(), close()
+            }
         })
     }
 

@@ -5,19 +5,33 @@ import useDialog from "../../Hooks/useDialog";
 import Dialog from '../../Components/Dialog';
 import CreateUser from '../../Components/CreateUser';
 import EditUser from '../../Components/EditUser';
+import { Inertia } from '@inertiajs/inertia';
 
 export default function Index(props) {
     const { data: users, links, from } = props.users;
 
     const [state, setState] = useState([])
- 
+
     const [addDialogHandler, addCloseTrigger, addTrigger] = useDialog()
 
     const [editDialogHandler, editCloseTrigger, editTrigger] = useDialog()
 
+    const [destroyDialogHandler, destroyCloseTrigger, destroyTrigger] = useDialog()
+
     const openEditDialog = (user) => {
         setState(user)
         editDialogHandler()
+    }
+
+    const openDestroyDialog = (user) => {
+        setState(user)
+        destroyDialogHandler()
+    }
+
+    const destroyUser = () => {
+        Inertia.delete(route('users.destroy', state.id), {
+            onSuccess: () => destroyCloseTrigger()
+        });
     }
 
     return (
@@ -28,6 +42,11 @@ export default function Index(props) {
 
             <Dialog trigger={editTrigger} title={`Edit User: ${state.name}`}>
                 <EditUser model={state} close={editCloseTrigger} />
+            </Dialog>
+
+            <Dialog size="sm" trigger={destroyTrigger} title={`Delete User: ${state.name}`}>
+                <p>Are you sure ?</p>
+                <button onClick={destroyUser} type="submit" className="btn btn-danger">Delete</button>
             </Dialog>
 
             <button onClick={addDialogHandler} className="btn btn-primary">
@@ -65,8 +84,7 @@ export default function Index(props) {
                                             </button>
                                             <ul className="dropdown-menu">
                                                 <li><button className="dropdown-item" onClick={() => openEditDialog(user)}>Edit</button></li>
-                                                <li><a className="dropdown-item" href="#">Delete</a></li>
-                                                <li><a className="dropdown-item" href="#">View</a></li>
+                                                <li><button className="dropdown-item" onClick={() => openDestroyDialog(user)}>Delete</button></li>
                                             </ul>
                                         </div>
                                     </td>
