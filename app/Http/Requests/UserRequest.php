@@ -16,8 +16,8 @@ class UserRequest extends FormRequest
     {
         return [
             "name" => ['required'],
-            "username" => ['unique:users', 'required', 'alpha_num'],
-            "email" => ['unique:users', 'required', 'email'],
+            "username" => ['required', 'alpha_num', 'unique:users,username,' . optional($this->user)->id,],
+            "email" => ['required', 'email', 'unique:users,email,' . optional($this->user)->id,],
             "location" => ['required'],
             "password" => ['required', Password::defaults()]
         ];

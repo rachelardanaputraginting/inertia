@@ -1,25 +1,40 @@
 import App from '../../Layouts/App'
-import React, { useRef } from 'react'
+import React, { useState } from 'react'
 import Pagination from '../../Components/Pagination';
 import useDialog from "../../Hooks/useDialog";
 import Dialog from '../../Components/Dialog';
 import CreateUser from '../../Components/CreateUser';
+import EditUser from '../../Components/EditUser';
 
 export default function Index(props) {
     const { data: users, links, from } = props.users;
 
+    const [state, setState] = useState([])
+ 
     const [addDialogHandler, addCloseTrigger, addTrigger] = useDialog()
+
+    const [editDialogHandler, editCloseTrigger, editTrigger] = useDialog()
+
+    const openEditDialog = (user) => {
+        setState(user)
+        editDialogHandler()
+    }
 
     return (
         <div className='container'>
-            <Dialog size="xl" trigger={addTrigger} title="Create User">
+            <Dialog trigger={addTrigger} title="Create new User">
                 <CreateUser close={addCloseTrigger} />
             </Dialog>
+
+            <Dialog trigger={editTrigger} title={`Edit User: ${state.name}`}>
+                <EditUser model={state} close={editCloseTrigger} />
+            </Dialog>
+
             <button onClick={addDialogHandler} className="btn btn-primary">
                 Add
             </button>
 
-            <div className="card mt-4">
+            <div className="card shadow mt-4">
                 <div className="card-header">Users</div>
                 <div className="card-body">
                     <table className="table">
@@ -35,7 +50,7 @@ export default function Index(props) {
                         </thead>
                         <tbody>
                             {users.map((user, index) => (
-                                <tr>
+                                <tr key={index}>
                                     <td key={user}>{from + index}</td>
                                     <td>{user.name}</td>
                                     <td>{user.username}</td>
@@ -49,7 +64,7 @@ export default function Index(props) {
                                                 </svg>
                                             </button>
                                             <ul className="dropdown-menu">
-                                                <li><a className="dropdown-item" href="#">Edit</a></li>
+                                                <li><button className="dropdown-item" onClick={() => openEditDialog(user)}>Edit</button></li>
                                                 <li><a className="dropdown-item" href="#">Delete</a></li>
                                                 <li><a className="dropdown-item" href="#">View</a></li>
                                             </ul>

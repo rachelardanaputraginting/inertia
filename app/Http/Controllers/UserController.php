@@ -19,17 +19,6 @@ class UserController extends Controller
         ]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(UserRequest $request)
     {
         $attributes = $request->toArray();
@@ -42,33 +31,23 @@ class UserController extends Controller
         ]);
     }
 
-    /**
-     * Display the specified resource.
-     */
     public function show(User $user)
     {
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(User $user)
+    public function update(UserRequest $request, User $user)
     {
-        //
+        $attributes = $request->toArray();
+
+        $user->update($attributes);
+
+        return back()->with([
+            "type" => "success",
+            "message" => "User was updated!"
+        ]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, User $user)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(User $user)
     {
         //

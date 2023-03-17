@@ -6,7 +6,7 @@ export default function Home({ name }) {
     return (
         <>
             <div className="container">
-                <div className="card">
+                <div className="card shadow">
                     <div className="card-body">Your new Inertia App</div>
                 </div>
             </div>

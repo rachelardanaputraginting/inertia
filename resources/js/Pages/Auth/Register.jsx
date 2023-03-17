@@ -6,7 +6,7 @@ export default function Register() {
     return (
         <>
             <div className="container">
-                <div className="card">
+                <div className="card shadow">
                     <div className="card-header">Register</div>
                     <div className="card-body">Form</div>
                     <div className="card-footer">
@@ -14,7 +14,7 @@ export default function Register() {
                     </div>
                 </div>
             </div>
-        </Guest>
+        </>
     )
 }
 

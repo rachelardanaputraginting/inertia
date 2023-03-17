@@ -6,7 +6,7 @@ export default function Dashboard() {
     return (
         <>
             <div className="container">
-                <div className="card">
+                <div className="card shadow">
                     <div className="card-header">Dashboard</div>
                     <div className="card-body">Selamat Datang</div>
                 </div>

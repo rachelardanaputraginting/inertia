@@ -14,7 +14,7 @@ export default function App({ children, title }) {
             <Navbar />
             <div className="container">
                 <Toaster
-                    position='bottom-right' />
+                    position='top-center' />
             </div>
             <div className="pt-4">
                 {children}

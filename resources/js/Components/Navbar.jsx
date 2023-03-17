@@ -22,6 +22,9 @@ export default function Navbar(props) {
                             <li className="nav-item">
                                 <Link className="nav-link" href={route('users.index')}>Users</Link>
                             </li>
+                            <li className="nav-item">
+                                <Link className="nav-link" href={route('posts.index')}>Posts</Link>
+                            </li>
                         </ul>
                         {
                             auth.user !== null

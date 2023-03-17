@@ -5,7 +5,7 @@ import Guest from '../../Layouts/Guest'
 export default function Login({ errors }) {
 
     const { data, setData, post } = useForm({
-        email: 'sawayn.briana@example.org', password: 'password', remember: ''
+        email: 'hills.jonathan@example.org', password: 'password', remember: ''
     })
 
     const submitHandler = (e) => {
@@ -21,7 +21,7 @@ export default function Login({ errors }) {
     return (
         <>
             <div className="container">
-                <div className="card">
+                <div className="card shadow">
                     <div className="card-header">Login</div>
                     <div className="card-body">
                         <form onSubmit={submitHandler} noValidate>
@@ -31,7 +31,7 @@ export default function Login({ errors }) {
                                 {errors && (<div className="mt-1 text-danger">{errors.email}</div>)}
                             </div>
                             <div className="mb-3">
-                                <label htmlFor="password" className="form-label">Email</label>
+                                <label htmlFor="password" className="form-label">Password</label>
                                 <input type="text" name='password' id='password' value={data.password} onChange={changeHandler} className="form-control" />
                                 {errors && (<div className="mt-1 text-danger">{errors.password}</div>)}
                             </div>
