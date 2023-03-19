@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\PostRequest;
 use App\Models\Post;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class PostController extends Controller
@@ -13,48 +15,36 @@ class PostController extends Controller
     public function index()
     {
         return inertia('Posts/Index', [
-            "posts" => Post::get()
+            "posts" => Post::latest()->paginate(10)
         ]);
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(PostRequest $request)
     {
-        //
+
+        $attributes = $request->toArray();
+
+        Post::create($attributes);
+
+        return back()->with([
+            "type" => "success",
+            "message" => "Post has been created!"
+        ]);
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Post $post)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Post $post)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, Post $post)
     {
-        //
+        $attributes = $request->toArray();
+
+        $post->update($attributes);
+
+        return back()->with([
+            "type" => "success",
+            "message" => "Post has been updatet!"
+        ]);
     }
 
     /**
@@ -62,6 +52,11 @@ class PostController extends Controller
      */
     public function destroy(Post $post)
     {
-        //
+        $post->delete();
+
+        return back()->with([
+            "type" => "success",
+            "message" => "User has ben deleted!"
+        ]);
     }
 }

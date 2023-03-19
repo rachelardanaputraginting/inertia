@@ -1,5 +1,5 @@
 import { Modal } from 'bootstrap';
-import React, { useRef } from 'react'
+import { useRef } from 'react'
 
 export default function useDialog() {
     const modal = useRef(null);

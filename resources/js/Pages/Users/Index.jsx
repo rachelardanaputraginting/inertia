@@ -19,7 +19,6 @@ export default function Index(props) {
     })
 
     const { addAddUser } = props;
-    console.log(addAddUser);
 
     const { data: users, links, from } = props.users;
 
@@ -51,7 +50,7 @@ export default function Index(props) {
         e.preventDefault();
         post(route('users.store'), {
             data,
-            onSuccess: () => {
+              onSuccess: () => {
                 reset(), addCloseTrigger()
             }
         })

@@ -1,6 +1,6 @@
 import React from 'react'
 
-export default function FormUser({ errors, submitLabel, submit, data, onChange, setData }) {
+export default function FormUser({ errors, submitLabel, submit, data, onChange }) {
     return (
         <form onSubmit={submit}>
             <div className="row">
