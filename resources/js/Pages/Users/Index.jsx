@@ -3,14 +3,25 @@ import React, { useState } from 'react'
 import Pagination from '../../Components/Pagination';
 import useDialog from "../../Hooks/useDialog";
 import Dialog from '../../Components/Dialog';
-import CreateUser from '../../Components/CreateUser';
-import EditUser from '../../Components/EditUser';
 import { Inertia } from '@inertiajs/inertia';
+import FormUser from '../../Components/FormUser';
+import { useForm } from '@inertiajs/inertia-react';
 
 export default function Index(props) {
-    const { data: users, links, from } = props.users;
 
-    const [state, setState] = useState([])
+    const { data, setData, post, put, reset, errors } = useForm({
+        name: '',
+        username: '',
+        email: '',
+        location: '',
+        password: '',
+
+    })
+
+    const { addAddUser } = props;
+    console.log(addAddUser);
+
+    const { data: users, links, from } = props.users;
 
     const [addDialogHandler, addCloseTrigger, addTrigger] = useDialog()
 
@@ -18,40 +29,64 @@ export default function Index(props) {
 
     const [destroyDialogHandler, destroyCloseTrigger, destroyTrigger] = useDialog()
 
+    const onChange = (e) => setData({ ...data, [e.target.id]: e.target.value });
+
     const openEditDialog = (user) => {
-        setState(user)
+        setData(user)
         editDialogHandler()
     }
 
     const openDestroyDialog = (user) => {
-        setState(user)
+        setData(user)
         destroyDialogHandler()
     }
 
     const destroyUser = () => {
-        Inertia.delete(route('users.destroy', state.id), {
+        Inertia.delete(route('users.destroy', data.id), {
             onSuccess: () => destroyCloseTrigger()
         });
+    }
+
+    const storeHandler = (e) => {
+        e.preventDefault();
+        post(route('users.store'), {
+            data,
+            onSuccess: () => {
+                reset(), addCloseTrigger()
+            }
+        })
+    }
+
+    const updateHandler = (e) => {
+        e.preventDefault();
+        put(route('users.update', data.id), {
+            data,
+            onSuccess: () => {
+                reset(), editCloseTrigger()
+            }
+        })
     }
 
     return (
         <div className='container'>
             <Dialog trigger={addTrigger} title="Create new User">
-                <CreateUser close={addCloseTrigger} />
+                <FormUser {...{ errors, submitLabel: 'Create', submit: storeHandler, data, setData, onChange }} />
             </Dialog>
 
-            <Dialog trigger={editTrigger} title={`Edit User: ${state.name}`}>
-                <EditUser model={state} close={editCloseTrigger} />
+            <Dialog trigger={editTrigger} title={`Edit User: ${data.name}`}>
+                <FormUser {...{ errors, submitLabel: 'Update', submit: updateHandler, data, setData, onChange }} />
             </Dialog>
 
-            <Dialog size="sm" trigger={destroyTrigger} title={`Delete User: ${state.name}`}>
+            <Dialog size="sm" trigger={destroyTrigger} title={`Delete User: ${data.name}`}>
                 <p>Are you sure ?</p>
                 <button onClick={destroyUser} type="submit" className="btn btn-danger">Delete</button>
             </Dialog>
 
-            <button onClick={addDialogHandler} className="btn btn-primary">
-                Add
-            </button>
+            {addAddUser ?
+                <button onClick={addDialogHandler} className="btn btn-primary">
+                    Add
+                </button> : 'You are not Admin!'
+            }
 
             <div className="card shadow mt-4">
                 <div className="card-header">Users</div>

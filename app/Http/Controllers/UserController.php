@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\UserRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
@@ -15,12 +16,15 @@ class UserController extends Controller
     {
         return inertia('Users/Index', [
             // "users" => User::get()
-            "users" => User::latest()->paginate(10)
+            "users" => User::latest()->paginate(10),
+            "addAddUser" => Auth::user()->can('add_user')
         ]);
     }
 
     public function store(UserRequest $request)
-    {
+{
+        $this->authorize('add_user', Auth::user());
+
         $attributes = $request->toArray();
 
         User::create($attributes);
