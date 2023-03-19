@@ -1,31 +1,30 @@
 import React from 'react'
 import App from '../../Layouts/App'
 
-export default function Index({ posts }) {
-    console.log(posts)
+export default function Index({ students }) {
     return (
         <>
             <div className="container">
                 <div className="card">
-                    <div className="card-header">Posts</div>
+                    <div className="card-header">Students</div>
                     <div className="card-body">
                         <table className="table">
                             <thead>
                                 <tr>
                                     <th>#</th>
-                                    <th>Title</th>
-                                    <th>Slug</th>
-                                    <th>Body</th>
+                                    <th>Name</th>
+                                    <th>NIM</th>
+                                    <th>Address</th>
                                     <th className='text-end'>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                {posts.map((post, index) => (
+                                {students.map((student, index) => (
                                     <tr key={index}>
                                         <td>{index + 1}</td>
-                                        <td>{post.title}</td>
-                                        <td>{post.slug}</td>
-                                        <td>{post.body}</td>
+                                        <td>{student.name}</td>
+                                        <td>{student.nim}</td>
+                                        <td>{student.address}</td>
                                         <td>
                                             <div className="dropdown text-end">
                                                 <button className="btn p-0" type="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -50,4 +49,4 @@ export default function Index({ posts }) {
     )
 }
 
-Index.layout = (page) => <App children={page} title="Posts" />
+Index.layout = (page) => <App children={page} title="Students" />

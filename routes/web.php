@@ -5,6 +5,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\RegisterController;
+use App\Http\Controllers\StudentController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
@@ -24,9 +25,11 @@ Route::middleware('auth')->group(function () {
     // Users
     Route::apiResource('users', UserController::class);
 
-    // Users
+    // Posts
     Route::apiResource('posts', PostController::class);
 
+    // Students
+    Route::apiResource('students', StudentController::class);
 });
 
 Route::middleware('guest')->group(function () {
