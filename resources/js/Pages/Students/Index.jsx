@@ -28,7 +28,19 @@ export default function Index(props) {
         })
     }
 
+    const updateHandler = (e) => {
+        e.preventDefault();
+        put(route('students.update', data.id), {
+            data,
+            onSuccess: () => {
+                reset(), editCloseTrigger()
+            }
+        })
+    }
+
     const [addDialogHandler, addCloseTrigger, addTrigger] = useDialog()
+
+    const [editDialogHandler, editCloseTrigger, editTrigger] = useDialog()
 
     const { data: students, from, links } = props.students
     return (
@@ -36,6 +48,10 @@ export default function Index(props) {
 
             <Dialog size="lg" trigger={addTrigger} title="Create new Student">
                 <FormStudent {...{ errors, submitLabel: "Create", submit: storeHandler, data, setData, onChange }} />
+            </Dialog>
+
+            <Dialog size='lg' trigger={editTrigger} title={`Name : ${data.name}`}>
+                <FormStudent {...{ errors, submitLabel: "Update", submit: updateHandler, data, setData, onChange }} />
             </Dialog>
 
             <button onClick={addDialogHandler} className="btn btn-primary">Add Student</button>

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StudentRequest;
 use App\Models\Students;
 use Illuminate\Http\Request;
 
@@ -17,13 +18,9 @@ class StudentController extends Controller
         ]);
     }
 
-    public function store(Request $request)
+    public function store(StudentRequest $request)
     {
-        $attributes = $request->validate([
-            "name" => ['required', 'min:3'],
-            "nim" => ['numeric', 'required'],
-            "address" => ['min:8']
-        ]);
+        $attributes = $request->toArray();
 
         Students::create($attributes);
 
