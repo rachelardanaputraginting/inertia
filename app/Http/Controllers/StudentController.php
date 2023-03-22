@@ -13,24 +13,24 @@ class StudentController extends Controller
     public function index()
     {
         return inertia('Students/Index', [
-            "students" => Students::get()
+            "students" => Students::latest()->paginate(10)
         ]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-        //
+        $attributes = $request->validate([
+            "name" => ['required', 'min:3'],
+            "nim" => ['numeric', 'required'],
+            "address" => ['min:8']
+        ]);
+
+        Students::create($attributes);
+
+        return back()->with([
+            "type" => "success",
+            "message" => "Student has been created!"
+        ]);
     }
 
     /**

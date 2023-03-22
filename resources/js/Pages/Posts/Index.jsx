@@ -85,7 +85,7 @@ export default function Index(props) {
 
             <button onClick={addDialogHandler} className="btn btn-primary">Add Post</button>
 
-            <div className="card">
+            <div className="card mt-4">
                 <div className="card-header">Posts</div>
                 <div className="card-body">
                     <table className="table">
