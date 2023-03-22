@@ -50,7 +50,7 @@ export default function Index(props) {
         e.preventDefault();
         post(route('users.store'), {
             data,
-              onSuccess: () => {
+            onSuccess: () => {
                 reset(), addCloseTrigger()
             }
         })

@@ -14,9 +14,20 @@ export default function Index(props) {
         address: ''
     });
 
+    const [addDialogHandler, addCloseTrigger, addTrigger] = useDialog()
+
+    const [editDialogHandler, editCloseTrigger, editTrigger] = useDialog()
+
+    const { data: students, from, links } = props.students
+
     const onChange = (e) => setData({
         ...data, [e.target.id]: e.target.value
     })
+
+    const openEditDialog = (student) => {
+        setData(student)
+        editDialogHandler()
+    }
 
     const storeHandler = (e) => {
         e.preventDefault();
@@ -38,11 +49,6 @@ export default function Index(props) {
         })
     }
 
-    const [addDialogHandler, addCloseTrigger, addTrigger] = useDialog()
-
-    const [editDialogHandler, editCloseTrigger, editTrigger] = useDialog()
-
-    const { data: students, from, links } = props.students
     return (
         <div className="container">
 
@@ -50,7 +56,7 @@ export default function Index(props) {
                 <FormStudent {...{ errors, submitLabel: "Create", submit: storeHandler, data, setData, onChange }} />
             </Dialog>
 
-            <Dialog size='lg' trigger={editTrigger} title={`Name : ${data.name}`}>
+            <Dialog size='lg' trigger={editTrigger} title={`Edit Student: ${data.name}`}>
                 <FormStudent {...{ errors, submitLabel: "Update", submit: updateHandler, data, setData, onChange }} />
             </Dialog>
 
@@ -84,7 +90,7 @@ export default function Index(props) {
                                                 </svg>
                                             </button>
                                             <ul className="dropdown-menu">
-                                                <li><a className="dropdown-item" href="#">Edit</a></li>
+                                                <li><button className="dropdown-item" onClick={() => openEditDialog(student)}>Edit</button></li>
                                                 <li><a className="dropdown-item" href="#">Delete</a></li>
                                             </ul>
                                         </div>

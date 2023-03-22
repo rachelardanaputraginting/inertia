@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StudentRequest;
-use App\Models\Students;
+use App\Models\Student;
 use Illuminate\Http\Request;
 
 class StudentController extends Controller
@@ -14,7 +14,7 @@ class StudentController extends Controller
     public function index()
     {
         return inertia('Students/Index', [
-            "students" => Students::latest()->paginate(10)
+            "students" => Student::latest()->paginate(10)
         ]);
     }
 
@@ -22,7 +22,7 @@ class StudentController extends Controller
     {
         $attributes = $request->toArray();
 
-        Students::create($attributes);
+        Student::create($attributes);
 
         return back()->with([
             "type" => "success",
@@ -30,34 +30,19 @@ class StudentController extends Controller
         ]);
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Students $students)
+    public function update(StudentRequest $request, Student $student)
     {
-        //
+        $attributes = $request->toArray();
+
+        $student->update($attributes);
+
+        return back()->with([
+            "type" => "success",
+            "message" => "Student has been updated!"
+        ]);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Students $students)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Students $students)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Students $students)
+    public function destroy(Student $students)
     {
         //
     }
