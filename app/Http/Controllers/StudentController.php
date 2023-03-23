@@ -42,8 +42,13 @@ class StudentController extends Controller
         ]);
     }
 
-    public function destroy(Student $students)
+    public function destroy(Student $student)
     {
-        //
+        $student->delete();
+
+        return back()->with([
+            "type" => "success",
+            "message" => "Student has ben deleted!"
+        ]);
     }
 }

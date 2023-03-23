@@ -5,6 +5,7 @@ import FormStudent from '../../Components/FormStudent';
 import useDialog from '../../Hooks/useDialog'
 import App from '../../Layouts/App'
 import { useForm } from '@inertiajs/inertia-react';
+import { Inertia } from '@inertiajs/inertia';
 
 export default function Index(props) {
 
@@ -18,6 +19,8 @@ export default function Index(props) {
 
     const [editDialogHandler, editCloseTrigger, editTrigger] = useDialog()
 
+    const [destroyDialogHandler, destroyCloseTrigger, destroyTrigger] = useDialog()
+
     const { data: students, from, links } = props.students
 
     const onChange = (e) => setData({
@@ -27,6 +30,11 @@ export default function Index(props) {
     const openEditDialog = (student) => {
         setData(student)
         editDialogHandler()
+    }
+
+    const openDestroyDialog = (student) => {
+        setData(student)
+        destroyDialogHandler()
     }
 
     const storeHandler = (e) => {
@@ -49,6 +57,12 @@ export default function Index(props) {
         })
     }
 
+    const destroyStudent = () => {
+        Inertia.delete(route('students.destroy', data.id), {
+            onSuccess: destroyCloseTrigger()
+        })
+    }
+
     return (
         <div className="container">
 
@@ -58,6 +72,11 @@ export default function Index(props) {
 
             <Dialog size='lg' trigger={editTrigger} title={`Edit Student: ${data.name}`}>
                 <FormStudent {...{ errors, submitLabel: "Update", submit: updateHandler, data, setData, onChange }} />
+            </Dialog>
+
+            <Dialog size='sm' trigger={destroyTrigger} title={`Delete Student: ${data.name}`}>
+                <p>Are you sure?</p>
+                <button onClick={destroyStudent} type="submit" className='btn btn-danger'>Delete</button>
             </Dialog>
 
             <button onClick={addDialogHandler} className="btn btn-primary">Add Student</button>
@@ -91,7 +110,7 @@ export default function Index(props) {
                                             </button>
                                             <ul className="dropdown-menu">
                                                 <li><button className="dropdown-item" onClick={() => openEditDialog(student)}>Edit</button></li>
-                                                <li><a className="dropdown-item" href="#">Delete</a></li>
+                                                <li><button className="dropdown-item" onClick={() => openDestroyDialog(student)} >Delete</button></li>
                                             </ul>
                                         </div>
                                     </td>
