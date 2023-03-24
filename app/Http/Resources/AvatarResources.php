@@ -17,7 +17,7 @@ class AvatarResources extends JsonResource
     {
         return [
             'name' => $this->name,
-            'image' => $this->image ? Storage::url($this->image) : 'Rachel',
+            'image' => $this->image ? Storage::url($this->image) : 'https://fakeimg.pl/1000x1000/?text=Menu&font=noto',
         ];
     }
 }

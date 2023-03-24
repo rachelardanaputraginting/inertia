@@ -62,7 +62,10 @@ export default function Index(props) {
                                 <tr key={index}>
                                     <td>{index + from}</td>
                                     <td>{avatar.name}</td>
-                                    <td><img src={avatar.image} alt="" /></td>
+                                    <td>
+                                        <img src={`/storage/${avatar.image}`} width="50" />
+                                    </td>
+                                    {/* <td><img src={avatar.image} alt={avatar.image} className="img-fluid" /></td> */}
                                     <td>
                                         <div className="dropdown text-end">
                                             <button className="btn p-0" type="button" data-bs-toggle="dropdown" aria-expanded="false">

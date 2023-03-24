@@ -21,18 +21,15 @@ class AvatarController extends Controller
 
     public function store(AvatarRequest $request)
     {
-        $attributes = $request->toArray();
+        $picture = $request->file('image');
 
-        // dd($request->file('image'));
-
-        if ($request->file('image')) {
-            $image = $request->file('image')->getClientOriginalName();
-            $validateData['image'] = $request->file('image')->storeAs('avatars', $image);
-        }
-
-        $attributes['image'] = $request->file('image')->getClientOriginalName();
-
-        Avatar::create($attributes);
+        Avatar::create([
+            'name' => $request->name,
+            'image' => $request->hasFile('image') ? $picture->storeAs(
+                'images/avatars',
+                $request->file('image')->getClientOriginalName()
+            ) : null,   
+        ]);
 
         return back()->with([
             "type" => "success",
