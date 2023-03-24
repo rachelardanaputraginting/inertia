@@ -70,7 +70,7 @@ export default function Index(props) {
                 <FormStudent {...{ errors, submitLabel: "Create", submit: storeHandler, data, setData, onChange }} />
             </Dialog>
 
-            <Dialog size='lg' trigger={editTrigger} title={`Edit Student: ${data.name}`}>
+        <Dialog size='lg' trigger={editTrigger} title={`Edit Student: ${data.name}`}>
                 <FormStudent {...{ errors, submitLabel: "Update", submit: updateHandler, data, setData, onChange }} />
             </Dialog>
 
